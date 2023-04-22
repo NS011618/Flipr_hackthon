@@ -2,10 +2,13 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { SetUser } from "../redux/userSlice";
 function ProtectedRoute({ children }) {
+  const {user}= useSelector(state => state.user)
   const navigate = useNavigate();
   const [readyToRender, setReadyToRender] = React.useState(false);
-  const [userData, setUserData] = useState(null);
+  const dispatch = useDispatch();
   const getUserData = async () => {
     try {
       const response = await axios.post(
@@ -18,19 +21,20 @@ function ProtectedRoute({ children }) {
         }
       );
       if (response.data.success) {
-        setUserData(response.data.data);
+        dispatch(SetUser(response.data.data));
       } else {
         alert(response.data.message);
       }
       setReadyToRender(true);
     } catch (error) {
+      localStorage.removeItem("token");
       setReadyToRender(true);
       console.log(error);
       navigate("/login");
     }
   };
   useEffect(() => {
-    if (userData == null) {
+    if (user== null) {
       getUserData();
     }
   }, []);

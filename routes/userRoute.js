@@ -44,7 +44,7 @@ router.post("/login", async (req, res) => {
     );
     if (passwordsMatched) {
       const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY, {
-        expiresIn: "8h",
+        expiresIn: "9h",
       });
       return res.status(200).send({
         message: "User logged in succesfully",
