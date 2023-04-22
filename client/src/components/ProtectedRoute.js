@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { SetUser } from "../redux/userSlice";
+import { HideLoading, ShowLoading } from "../redux/alertsSlice";
 function ProtectedRoute({ children }) {
   const {user}= useSelector(state => state.user)
   const navigate = useNavigate();
@@ -11,6 +12,7 @@ function ProtectedRoute({ children }) {
   const dispatch = useDispatch();
   const getUserData = async () => {
     try {
+      dispatch(ShowLoading())
       const response = await axios.post(
         "api/users/get-user-data",
         {},
@@ -20,6 +22,7 @@ function ProtectedRoute({ children }) {
           },
         }
       );
+      dispatch(HideLoading())
       if (response.data.success) {
         dispatch(SetUser(response.data.data));
       } else {
@@ -27,6 +30,7 @@ function ProtectedRoute({ children }) {
       }
       setReadyToRender(true);
     } catch (error) {
+      dispatch(HideLoading())
       localStorage.removeItem("token");
       setReadyToRender(true);
       console.log(error);
@@ -39,7 +43,7 @@ function ProtectedRoute({ children }) {
     }
   }, []);
   return <div>
-    {readyToRender ? children : <div>Loading...</div>}
+    {readyToRender && children}
   </div>;
 }
 
