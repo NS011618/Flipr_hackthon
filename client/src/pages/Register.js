@@ -1,9 +1,9 @@
 import React from 'react'
 import { useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 function Register() {
-  const [user , setUser] = useState({
-    name:"",
+  const [user , setUser] = useState({    
     email:"",
     password:"",
   });
@@ -28,6 +28,7 @@ function Register() {
             <input type='email' value={user.email} onChange={(e)=> setUser({...user,email: e.target.value})} placeholder='Email'/>
             <input type='password' value={user.password} onChange={(e)=> setUser({...user,password: e.target.value})} placeholder='Password'/>
             <button type='submit' onClick={register} className='primary'>Register</button>
+            <Link to='/login' className='text-gray-600 underline'>Click Here To Login</Link>
         </div>        
     </div>
   )
