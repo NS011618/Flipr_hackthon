@@ -1,13 +1,23 @@
 import React from 'react'
 import { useState } from 'react';
+import axios from 'axios';
 function Register() {
   const [user , setUser] = useState({
     name:"",
     email:"",
     password:"",
   });
-  const register=()=>{
-    console.log(user);
+  const register=async()=>{
+    try {
+        const response = await axios.post('/api/users/register',user);
+        if(response.data.success){
+            alert("user registered successfully");
+        }else{
+            alert(response.data.message);
+        }
+    } catch (error) {
+        console.log(error);
+    }
   }
   return (
     <div className='min-h-screen flex items-center justify-center'>        
