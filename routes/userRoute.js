@@ -44,7 +44,7 @@ router.post("/login", async (req, res) => {
     );
     if (passwordsMatched) {
       const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY, {
-        expiresIn: "1h",
+        expiresIn: "8h",
       });
       return res.status(200).send({
         message: "User logged in succesfully",
@@ -61,7 +61,7 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.get("/get-user-data", authMiddleware,async(req,res)=>{
+router.post("/get-user-data", authMiddleware,async(req,res)=>{
     try {
         const user = await User.findById(req.body.userId);        
         return res.status(200).send({ message: "user data fetched successfully", success: true, data:user});
