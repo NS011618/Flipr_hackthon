@@ -33,11 +33,7 @@ function Register() {
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div>
-        <img
-          className="h-[500px]"
-          src="https://img.freepik.com/premium-photo/3d-rendering-3d-illustration-red-black-music-note-icon-isolated-white-background-song-melody-tune-symbol-concept_640106-443.jpg?w=2000"
-          alt=""
-        />
+        <img className="h-[500px]" src="login.jpg" alt="" />
       </div>
       <div className="flex flex-col gap-5 w-96 p-5  ">
         <h1 className="text-3xl font-bold text-secondary">Welcome </h1>

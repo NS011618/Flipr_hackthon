@@ -32,6 +32,9 @@ function Login() {
   };
   return (
     <div className="min-h-screen flex items-center justify-center">
+      <div>
+        <img className="h-[500px]" src="register.jpg" alt="" />
+      </div>
       <div className="flex flex-col gap-3 w-96 p-3 shadow border border-gray-300">
         <h1 className="text-3xl font-bold text-gray-700">WELCOME BACK</h1>
         <hr />

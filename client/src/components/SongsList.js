@@ -1,28 +1,69 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { SetCurrentSongIndex, SetCurrentSong } from "../redux/userSlice";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import {
+  SetCurrentSong,
+  SetCurrentSongIndex,
+  SetSelectedPlaylist,
+} from "../redux/userSlice";
 
 function SongsList() {
-  const dispatch = useDispatch();
-  const { allSongs, currentSong, selectedPlaylist } = useSelector(
+  const { currentSong, selectedPlaylist, allSongs } = useSelector(
     (state) => state.user
   );
+  const [songsToPlay, setSongsToPlay] = React.useState([]);
+
+  const dispatch = useDispatch();
+  const [searchKey, setSearchKey] = React.useState("");
+
+  useEffect(() => {
+    if (selectedPlaylist) {
+      if (
+        selectedPlaylist &&
+        selectedPlaylist.name === "All Songs" &&
+        searchKey !== ""
+      ) {
+        const tempSongs = [];
+
+        selectedPlaylist.songs.forEach((song) => {
+          if (JSON.stringify(song).toLowerCase().includes(searchKey)) {
+            tempSongs.push(song);
+          }
+        });
+        console.log(tempSongs);
+        setSongsToPlay(tempSongs);
+      } else {
+        setSongsToPlay(selectedPlaylist?.songs);
+      }
+    }
+  }, [selectedPlaylist, searchKey]);
+
   return (
-    <div className="flex-col gap-5">
+    <div className="flex flex-col gap-3">
       <div className="pl-3 pr-6">
         <input
           type="text"
-          placeholder="Song,Artist,Album"
-          className="rounded mx-3 w-full"
+          placeholder="Song , Artist , Album"
+          className="rounded w-full"
+          onFocus={() =>
+            dispatch(
+              SetSelectedPlaylist({
+                name: "All Songs",
+                songs: allSongs,
+              })
+            )
+          }
+          value={searchKey}
+          onChange={(e) => setSearchKey(e.target.value)}
         />
       </div>
-      <div className="overflow-y-scroll h-[52vh] p-3">
-        {selectedPlaylist?.songs?.map((song, index) => {
+      <div className="overflow-y-scroll h-[54vh] p-3">
+        {songsToPlay.map((song, index) => {
           const isPlaying = currentSong?._id === song._id;
           return (
             <div
-              className={` p-2 flex items-center justify-between cursor-pointer ${
-                isPlaying && "shadow rounded border border-gray-300"
+              className={`p-2 text-gray-600 flex items-center justify-between cursor-pointer ${
+                isPlaying && "shadow rounded text-active font-semibold border-active border-2"
               }`}
               onClick={() => {
                 dispatch(SetCurrentSong(song));

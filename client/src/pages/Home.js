@@ -8,19 +8,18 @@ import Player from "../components/Player";
 function Home() {
   const { user } = useSelector((state) => state.user);
 
-  
   console.log(user);
   return (
     <>
-    <div className="flex gap-5">
-      <div className="w-1/2">
-        <SongsList />
+      <div className="flex gap-5">
+        <div className="w-1/2">
+          <SongsList />
+        </div>
+        <div className="w-1/2">
+          <Playlists />
+        </div>
       </div>
-      <div className="w-1/2">
-        <Playlists />
-      </div>
-    </div>
-    <Player />
+      <Player />
     </>
   );
 }
