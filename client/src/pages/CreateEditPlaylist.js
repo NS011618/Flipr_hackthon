@@ -5,7 +5,8 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { HideLoading, ShowLoading } from '../redux/alertsSlice';
 import { useDispatch } from 'react-redux';
-import {  SetSelectedPlaylistForEdit, SetUser } from '../redux/userSlice';
+import {  SetSelectedPlaylist, SetSelectedPlaylistForEdit, SetUser } from '../redux/userSlice';
+import Player from '../components/Player';
 
 function CreateEditPlaylist() {
   const [name,setName] = React.useState("");
@@ -70,6 +71,10 @@ function CreateEditPlaylist() {
                 toast.success("Playlist updated successfully");
                 dispatch(SetUser(response.data.data));
                 dispatch(SetSelectedPlaylistForEdit(null));
+                dispatch(SetSelectedPlaylist({
+                    name:'All Songs',
+                    songs:allSongs
+                }))
                 setName("");
                 setSelectedSongs([]);
                 navigate("/");
@@ -133,6 +138,7 @@ function CreateEditPlaylist() {
               </div>
             })}          
         </div>
+        <Player />
     </div>
   )
 }

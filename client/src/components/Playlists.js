@@ -33,6 +33,10 @@ function Playlists() {
       dispatch(HideLoading());
       if(response.data.success){
           toast.success("Playlist delete successfully");
+          dispatch(SetSelectedPlaylist({
+            name:'All Songs',
+            songs:allSongs,
+          }))
           dispatch(SetUser(response.data.data));        
           
       }else{

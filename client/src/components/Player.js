@@ -1,24 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { SetCurrentSong, SetCurrentSongIndex } from "../redux/userSlice";
+import { SetCurrentSong, SetCurrentSongIndex, SetCurrentTime, SetIsPlaying } from "../redux/userSlice";
 
 function Player() {
   const [volume, setVolume] = useState(0.5);
-  const [currentTime, setCurrentTime] = useState(0);
+  
   const dispatch = useDispatch();
-  const [isPlaying, setIsPlaying] = useState(false);
+  
   const audioRef = React.createRef();
-  const { currentSong, currentSongIndex, allSongs } = useSelector(
+  const { currentSong, currentSongIndex, allSongs,isPlaying,currentTime } = useSelector(
     (state) => state.user
   );
 
   const onPlay = () => {
     audioRef.current.play();
-    setIsPlaying(true);
+    dispatch(SetIsPlaying(true));
+    
   };
   const onPause = () => {
     audioRef.current.pause();
-    setIsPlaying(false);
+    dispatch(SetIsPlaying(false));
   };
   const onPrev = () => {
     if(currentSongIndex !== 0){
@@ -46,10 +47,16 @@ function Player() {
     }
   }, [allSongs]);
 
+  useEffect(()=>{
+     if(currentTime){
+         audioRef.current.currentTime = currentTime;
+     }
+  },[])
+
   return (
     <div className="absolute bottom-0 left-0 right-0 p-5 shadow-lg bg-gray-100 border">
-      <div className="flex justify-between">
-        <div className="flex items-center gap-2">
+      <div className="flex justify-between items-center">
+        <div className="flex items-center gap-2 w-96">
           <img
             className="h-20 w-32"
             src="https://www.pngimages.pics/images/quotes/english/general/music-symbol-png-clipart-52650-297684.png"
@@ -67,7 +74,7 @@ function Player() {
             src={currentSong?.src}
             ref={audioRef}
             onTimeUpdate={(e) => {
-              setCurrentTime(e.target.currentTime);
+              dispatch(SetCurrentTime(e.target.currentTime));
             }}
           ></audio>
           <div className="flex gap-3">
@@ -91,7 +98,7 @@ function Player() {
               value={currentTime}
               onChange={(e) => {
                 audioRef.current.currentTime = e.target.value;
-                setCurrentTime(e.target.value);
+                dispatch(SetCurrentTime(e.target.value));
               }}
             />
             <h1>{currentSong?.duration}</h1>

@@ -8,6 +8,8 @@ export const userSlice = createSlice({
         currentSongIndex:0,
         selectedPlaylist:null,
         selectedPlaylistForEdit:null,
+        isPlaying:false,
+        currentTime:0,
     },
     reducers:{
         SetUser:(state,action)=>{
@@ -28,7 +30,13 @@ export const userSlice = createSlice({
         SetSelectedPlaylistForEdit:(state,action)=>{
             state.selectedPlaylistForEdit = action.payload;
         },
+        SetIsPlaying:(state,action)=>{
+            state.isPlaying = action.payload;
+        },
+        SetCurrentTime:(state,action)=>{
+            state.currentTime = action.payload;
+        },
     }
 })
 
-export const { SetUser,SetAllSongs,SetCurrentSong,SetCurrentSongIndex,SetSelectedPlaylist,SetSelectedPlaylistForEdit} = userSlice.actions;
+export const { SetUser,SetAllSongs,SetCurrentSong,SetCurrentSongIndex,SetSelectedPlaylist,SetSelectedPlaylistForEdit,SetIsPlaying,SetCurrentTime} = userSlice.actions;
