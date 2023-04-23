@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-
+import DefaultLayout from "./DefaultLayout";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { SetUser } from "../redux/userSlice";
@@ -43,7 +43,7 @@ function ProtectedRoute({ children }) {
     }
   }, []);
   return <div>
-    {readyToRender && children}
+    {readyToRender && <DefaultLayout>{children}</DefaultLayout>}
   </div>;
 }
 
