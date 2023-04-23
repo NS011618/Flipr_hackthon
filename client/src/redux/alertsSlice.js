@@ -14,4 +14,4 @@ export const alertSlice = createSlice({
     }
 })
 
-export const {ShowLoading,HideLoading} = alertSlice.actions;
+export const { ShowLoading, HideLoading } = alertSlice.actions;

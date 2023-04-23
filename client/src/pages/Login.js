@@ -4,28 +4,29 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { HideLoading, ShowLoading } from "../redux/alertsSlice";
+import toast from 'react-hot-toast';
 function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [user, setUser] = useState({
-    name: "",
+  const [user, setUser] = useState({    
     email: "",
     password: "",
   });
   const login = async () => {
     try {
-      dispatch(ShowLoading);
+      dispatch(ShowLoading());
       const response = await axios.post("/api/users/login", user);
-      dispatch(HideLoading);
+      dispatch(HideLoading());
       if (response.data.success) {
-        alert("user logged in successfully");
+        toast.success(response.data.message);
         localStorage.setItem("token", response.data.data);
         navigate("/");
       } else {
-        alert(response.data.message);
+        toast.error(response.data.message);
       }
     } catch (error) {
-      dispatch(HideLoading);
+      toast.error('Something went wrong');
+      dispatch(HideLoading());
       console.log(error);
     }
   };
