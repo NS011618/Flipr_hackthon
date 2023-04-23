@@ -1,14 +1,14 @@
-import React from "react";
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { HideLoading, ShowLoading } from "../redux/alertsSlice";
-import toast from 'react-hot-toast';
+import { useDispatch } from "react-redux";
+import toast from "react-hot-toast";
+
 function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [user, setUser] = useState({    
+  const [user, setUser] = useState({
     email: "",
     password: "",
   });
@@ -23,39 +23,44 @@ function Login() {
         navigate("/");
       } else {
         toast.error(response.data.message);
+        alert(response.data.message);
       }
     } catch (error) {
-      toast.error('Something went wrong');
+      toast.error("Something went wrong");
       dispatch(HideLoading());
       console.log(error);
     }
   };
   return (
     <div className="min-h-screen flex items-center justify-center">
-      <div>
-        <img className="h-[500px]" src="register.jpg" alt="" />
-      </div>
-      <div className="flex flex-col gap-3 w-96 p-3 shadow border border-gray-300">
-        <h1 className="text-3xl font-bold text-gray-700">WELCOME BACK</h1>
+      <div className="flex flex-col gap-5 w-96 p-5">
+        <h1 className="text-3xl font-bold text-secondary">Welcome Back</h1>
         <hr />
         <input
-          type="email"
+          type="text"
+          placeholder="Email"
           value={user.email}
           onChange={(e) => setUser({ ...user, email: e.target.value })}
-          placeholder="Email"
         />
         <input
           type="password"
+          placeholder="Password"
           value={user.password}
           onChange={(e) => setUser({ ...user, password: e.target.value })}
-          placeholder="Password"
         />
-        <button type="submit" onClick={login} className="primary">
+        <button className="primary bg-primary" onClick={login}>
           Login
         </button>
-        <Link to="/register" className="text-gray-600 underline">
-          Click Here To Register
+        <Link to="/register" className="text-secondary underline">
+          Not yet Registered ? Click Here To Signup
         </Link>
+      </div>
+      <div>
+        <img
+          className="h-[500px]"
+          src="https://img.freepik.com/premium-photo/3d-rendering-3d-illustration-red-black-music-note-icon-isolated-white-background-song-melody-tune-symbol-concept_640106-443.jpg?w=2000"
+          alt=""
+        />
       </div>
     </div>
   );
