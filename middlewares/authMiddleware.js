@@ -7,7 +7,6 @@ module.exports = (req, res, next) => {
     req.body.userId = decoded.userId;
     next();
   } catch (error) {
-    console.log(error);
     return res.status(500).send({ message: error.message, success: false });
   }
 };
