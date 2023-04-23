@@ -8,6 +8,7 @@ function SongsList() {
   return (
     <div className='flex-col gap-5'>
         <input type='text' placeholder='Song,Artist,Album' className='rounded w-full' />
+        <div className='overflow-y-scroll'>
         {selectedPlaylist?.songs?.map((song,index)=>{
             const isPlaying = currentSong?._id === song._id;
             return( <div className={` p-2 flex items-center justify-between cursor-pointer ${isPlaying && 'shadow rounded border border-gray-300'}`} onClick={()=>{
@@ -25,6 +26,7 @@ function SongsList() {
             
             );
         })}
+        </div>
     </div>
   )
 }

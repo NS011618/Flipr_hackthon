@@ -21,12 +21,16 @@ function Player() {
     setIsPlaying(false);
   };
   const onPrev = () => {
-    dispatch(SetCurrentSongIndex(currentSongIndex - 1));
-    dispatch(SetCurrentSong(allSongs[currentSongIndex - 1]));
+    if(currentSongIndex !== 0){
+      dispatch(SetCurrentSongIndex(currentSongIndex - 1));
+      dispatch(SetCurrentSong(allSongs[currentSongIndex - 1]));
+    }
   };
   const onNext = () => {
-    dispatch(SetCurrentSongIndex(currentSongIndex + 1));
-    dispatch(SetCurrentSong(allSongs[currentSongIndex + 1]));
+    if(currentSongIndex !== allSongs.length - 1){
+      dispatch(SetCurrentSongIndex(currentSongIndex + 1));
+      dispatch(SetCurrentSong(allSongs[currentSongIndex + 1]));
+    }
   };
 
   useEffect(() => {
