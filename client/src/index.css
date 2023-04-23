@@ -25,3 +25,7 @@ input:focus{
   padding: 7px 0;
 
 }
+
+i{
+  cursor: pointer;
+}

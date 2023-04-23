@@ -16,7 +16,7 @@ function DefaultLayout({children}) {
             </div>
 
         </div>
-        <div className='content'>
+        <div className='content m-10'>
            {children}
         </div>
     </div>
