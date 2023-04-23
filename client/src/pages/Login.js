@@ -58,7 +58,7 @@ function Login() {
       <div>
         <img
           className="h-[500px]"
-          src="https://img.freepik.com/premium-photo/3d-rendering-3d-illustration-red-black-music-note-icon-isolated-white-background-song-melody-tune-symbol-concept_640106-443.jpg?w=2000"
+          src="register.jpg"
           alt=""
         />
       </div>
