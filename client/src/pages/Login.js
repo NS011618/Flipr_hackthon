@@ -48,7 +48,7 @@ function Login() {
           value={user.password}
           onChange={(e) => setUser({ ...user, password: e.target.value })}
         />
-        <button className="primary bg-primary" onClick={login}>
+        <button className="primary bg-orange-500" onClick={login}>
           Login
         </button>
         <Link to="/register" className="text-secondary underline">

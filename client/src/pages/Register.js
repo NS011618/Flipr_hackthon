@@ -60,7 +60,7 @@ function Register() {
           value={user.password}
           onChange={(e) => setUser({ ...user, password: e.target.value })}
         />
-        <button className="primary bg-primary" onClick={register}>
+        <button className="primary bg-orange-500" onClick={register}>
           Register
         </button>
         <Link to="/login" className="text-secondary underline">
