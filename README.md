@@ -8,7 +8,7 @@ This is a music player website where we can add songs,delete songs, create a pla
 [![MIT License](https://img.shields.io/badge/Platform-Deployed-green.svg)](https://choosealicense.com/licenses/mit/)
 
 Deployed App link: 
-
+https://musicplayer-7x40.onrender.com
 
 ## Features
 --User Registration
